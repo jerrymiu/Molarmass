@@ -1,0 +1,195 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+#include <stdlib.h>
+#include <iomanip>
+using namespace std;
+
+int numDigits(int number)
+        {
+            int digits = 0;
+            if (number < 0) digits = 1; // remove this line if '-' counts as a digit
+            while (number) {
+                number /= 10;
+                digits++;
+            }
+            return digits;
+        }
+
+int main()
+{
+    map<string,double> value;
+
+    value["h"] = 1.00794l;
+    value["he"]= 4.002602;
+    value["li"]= 6.941000;
+    value["be"]= 9.012182;
+    value["b"] = 10.811000;
+    value["c"] = 12.010700;
+    value["n"] = 14.006740;
+    value["o"] = 15.994000;
+    value["f"] = 18.99848032;
+    value["ne"] = 20.1797;
+    value["na"] = 22.989770;
+    value["mg"] = 24.3050;
+    value["al"] = 26.581538;
+    value["si"] = 28.0855;
+    value["p"] = 30.973761;
+    value["s"] = 32.066;
+    value["cl"] = 35.4527;
+    value["ar"] = 39.948;
+    value["k"] = 39.0983;
+    value["ca"] = 40.078;
+    value["sc"] = 44.955910;
+    value["ti"] = 47.867;
+    value["v"] =50.9415;
+    value["cr"] = 51.9961;
+    value["mn"] = 54.938045;
+    value["fe"] = 55.845;
+    value["co"] = 58.933200;
+    value["ni"] = 58.693;
+    value["cu"] = 63.546;
+    value["zn"] = 65.39;
+    value["ga"] = 69.723;
+    value["ge"] = 72.61;
+    value["as"] = 74.922;
+    value["se"] = 78.96;
+    value["br"] = 79.904;
+    value["kr"] = 83.80;
+    value["rb"] = 85.468;
+    value["sr"] = 87.62;
+    value["y"] = 88.906;
+    value["zr"] = 91.224;
+    value["nb"] = 92.906;
+    value["mo"] = 96.94;
+    value["tc"] = 98;
+    value["ru"] = 101.07;
+    value["rh"] = 102.91;
+    value["pd"] = 106.42;
+    value["ag"] = 107.87;
+    value["cd"] = 112.41;
+    value["in"] = 114.82;
+    value["sn"] = 118.71;
+    value["sb"] = 121.76;
+    value["te"] = 127.60;
+    value["io"] = 126.90;
+    value["xe"] = 131.29;
+    value["cs"] = 132.91;
+    value["ba"] = 137.33;
+    value["la"] = 138.91;
+    value["ce"] = 140.12;
+    value["pr"] = 140.91;
+    value["nd"] = 144.24;
+    value["pm"] = 145;
+    value["sm"] = 150.36;
+    value["eu"] = 151.96;
+    value["gd"] = 157.25;
+    value["tb"] = 158.93;
+    value["dy"] = 162.50;
+    value["ho"] = 164.93;
+    value["er"] = 167.26;
+    value["tm"] = 168.93;
+    value["yb"] = 173.04;
+    value["lu"] = 174.97;
+    value["hf"] = 178.49;
+    value["ta"] = 180.95;
+    value["w"] = 183.84;
+    value["re"] = 186.21;
+    value["os"] = 190.23;
+    value["ir"] = 192.22;
+    value["pt"] = 195.08;
+    value["au"] = 196.97;
+    value["hg"] = 200.59;
+    value["tl"] = 204.38;
+    value["pb"] = 207.2;
+    value["bi"] = 208.98;
+    value["po"] = 209;
+    value["at"] = 210;
+    value["rn"] = 222;
+    value["fr"] = 223;
+    value["ra"] = 226;
+    value["ac"] = 227;
+    value["th"] = 232.04;
+    value["pa"] = 231.04;
+    value["u"] = 238.03;
+    value["np"] = 237;
+    value["pu"] = 244;
+    value["am"] = 243;
+    value["cm"] = 247;
+    value["bk"] = 247;
+    value["cf"] = 251;
+    value["es"] = 252;
+    value["fm"] = 257;
+    value["md"] = 258;
+    value["no"]= 259;
+    value["lr"] = 262;
+    value["rf"] = 261;
+    value["db"] = 262;
+    value["sg"] = 266;
+    value["bh"] = 264;
+    value["hs"] = 269;
+    value["mt"] = 268;
+    value["uun"] = 271;
+    value["uuu"] = 272;
+    value["uub"] = 277;
+    value["uuq"] = 289;
+
+    cout << "Welcome to the molar mass calculator! \nSubscripts are not implied and elements are not case sensitive. \nEx: H2O can be entered as H2O1. \nEnter chemical formula: " ;
+    string original = "";
+    vector<string> element;
+    vector<int> amount;
+    int found = 0;
+    int foundend = 0;
+    int j=0;
+    int convertedint = 0;
+    double molarmass = 0.0;
+    string tolowercase = "";
+    getline(cin, original);
+    string actualoriginal = original;
+
+    //Split the formula apart
+    while(original.size() > 0)
+    {
+        found = original.find_first_of("123456789");
+        tolowercase = original.substr(0, found);
+        for(int conv=0; conv < tolowercase.size(); conv++)
+        {
+            tolowercase.at(conv) = tolower(tolowercase.at(conv));
+        }
+        element.push_back(tolowercase);
+        foundend = original.find_first_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        foundend+=tolowercase.size();
+        convertedint = atoi((original.substr(found, foundend)).c_str());
+        amount.push_back(convertedint);
+        foundend+=numDigits(convertedint);
+        original = original.substr(foundend, original.size());
+        if(original.size() <= 0)
+        {
+            break;
+        }
+        j++;
+    }
+    //Calculation Time
+    int m = j;
+    while(j>=0)
+    {
+
+        molarmass += value[element.at(j)] * amount.at(j);
+        j--;
+    }
+    j = m;
+    setprecision(8);
+    cout << "------------------------------------------------------------------------" << endl;
+    cout << "Atom       Molar Mass      Subtotal Mass (%)       Subtotal Mass (g/mol)" << endl;
+    while (j >=0)
+    {
+    cout << element.at(j) <<"          "<< value[element.at(j)] << "             "<< 100*((value[element.at(j)] * amount.at(j))/molarmass) <<"%                 "<< value[element.at(j)] * amount.at(j) <<endl;
+    cout << endl;
+    j--;
+    }
+    cout << "------------------------------------------------------------------------" << endl;
+    cout << "The molar mass of: " << actualoriginal << " is " << molarmass <<"g/mol";
+    return 0;
+
+}
